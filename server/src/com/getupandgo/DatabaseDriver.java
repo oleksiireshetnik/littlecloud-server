@@ -10,23 +10,17 @@ public class DatabaseDriver {
     DatabaseDriver(){
         try {
             this.initConnection();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
             this.createLoginTable();
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
     }
 
     private void createLoginTable() throws SQLException {
-        stmt.executeUpdate("CREATE TABLE IF NOT EXISTS USERS " +
-                           "USER_ID INTEGER, " +
-                           "EMAIL CHAR(20), PASS CHAR(32), " +
-                           "USERNAME CHAR(32)");
+        stmt.executeUpdate("CREATE TABLE IF NOT EXISTS AUTHENTICATION " +
+                "USER_ID INTEGER AUTO_INCREMENT PRIMARY KEY, " +
+                "EMAIL CHAR(20), PASS CHAR(32), " +
+                "USERNAME CHAR(32)");
 
     }
 
@@ -42,12 +36,15 @@ public class DatabaseDriver {
 
     void newUser(UserInfo user) throws SQLException {
         String query = "SELECT EMAIL " +
-                       "FROM USERS " +
-                       "WHERE EMAIL = " + user.email + " ";
+                       "FROM AUTHENTICATION WHERE EMAIL = \"" + user.email + "\"";
+
         ResultSet rs = stmt.executeQuery(query);
 
         if(!rs.first()){
-            //create user table
+            stmt.executeUpdate("CREATE TABLE USER_DATA" +
+                    "USER_ID INTEGER, " +
+                    "HASH_SUM INTEGER, " +
+                    "VARCHAR(40) FILENAME, CHAR(20) DATA"); //20 so random
         }
         else {
             //nothing
@@ -55,11 +52,11 @@ public class DatabaseDriver {
     }
 
     void setUser(String username) {
-        this.USER = username;
+        USER = username;
     }
 
     void setPass(String password) {
-        this.PASS = password;
+        PASS = password;
     }
 
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
