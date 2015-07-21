@@ -5,6 +5,8 @@ package com.getupandgo;
  */
 public class WebClientDriver {
     void parseLogin(){
-        //if(users)
+        //if(parsed)
+        //if(DatabaseDriver.have_email &&
+             //   DatabaseDriver.havepass)
     }
 }

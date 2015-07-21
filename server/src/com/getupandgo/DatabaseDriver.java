@@ -17,7 +17,7 @@ public class DatabaseDriver {
     }
 
     private void createLoginTable() throws SQLException {
-        stmt.executeUpdate("CREATE TABLE IF NOT EXISTS AUTHENTICATION " +
+        stmt.executeUpdate("CREATE TABLE IF NOT EXISTS REGISTRATION " +
                 "USER_ID INTEGER AUTO_INCREMENT PRIMARY KEY, " +
                 "EMAIL CHAR(20), PASS CHAR(32), " +
                 "USERNAME CHAR(32)");
@@ -34,13 +34,37 @@ public class DatabaseDriver {
             stmt = conn.createStatement();
     }
 
-    void newUser(UserInfo user) throws SQLException {
+    private ResultSet checkEmail(String email) throws SQLException {
         String query = "SELECT EMAIL " +
-                       "FROM AUTHENTICATION WHERE EMAIL = \"" + user.email + "\"";
+                "FROM REGISTRATION WHERE EMAIL = \"" + email + "\"";
 
         ResultSet rs = stmt.executeQuery(query);
 
-        if(!rs.first()){
+        return rs;
+    }
+
+    void registration(UserInfo user) throws SQLException {
+
+        ResultSet emails = checkEmail(user.email);
+
+        if(!emails.first()){
+
+            stmt.executeUpdate("INSERT INTO REGISTRATION " +
+                    "VALUES ('French_Roast', 49, 8.99, 0, 0)");
+
+            stmt.executeUpdate("CREATE TABLE USER_DATA" +
+                    "USER_ID INTEGER, " +
+                    "HASH_SUM INTEGER, " +
+                    "VARCHAR(40) FILENAME, CHAR(20) DATA"); //20 so random
+        }
+        else System.out.println("User exists");
+    }
+
+    void login(UserInfo user) throws SQLException {
+
+        ResultSet emails = checkEmail(user.email);
+
+        if(!emails.first()){
             stmt.executeUpdate("CREATE TABLE USER_DATA" +
                     "USER_ID INTEGER, " +
                     "HASH_SUM INTEGER, " +
