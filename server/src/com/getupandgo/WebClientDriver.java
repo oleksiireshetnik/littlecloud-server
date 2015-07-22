@@ -9,7 +9,7 @@ public class WebClientDriver {
             //check email and pass in DB
         }
         //else
-            //send error to site
+            //send error to web app
 
     }
 
@@ -18,7 +18,10 @@ public class WebClientDriver {
             //check email and pass in DB
         }
         //else
-        //send error to site
+        //send error to web app
+    }
 
+    void displayFiles(){
+        //send img and name of files to web app
     }
 }
