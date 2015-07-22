@@ -1,4 +1,4 @@
-package com.getupandgo;
+package com.littlecloud;
 
 /**
  * Created by getupandgo on 7/19/15.

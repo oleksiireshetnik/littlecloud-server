@@ -1,4 +1,4 @@
-package com.getupandgo;
+package com.littlecloud;
 
 import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_DELETE;
