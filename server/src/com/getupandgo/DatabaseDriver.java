@@ -21,7 +21,6 @@ public class DatabaseDriver {
                 "USER_ID INTEGER AUTO_INCREMENT PRIMARY KEY, " +
                 "EMAIL CHAR(20), PASS CHAR(32), " +
                 "USERNAME CHAR(32)");
-
     }
 
     void initConnection() throws ClassNotFoundException, SQLException {
@@ -49,8 +48,17 @@ public class DatabaseDriver {
 
         if(!emails.first()){
 
-            stmt.executeUpdate("INSERT INTO REGISTRATION " +
-                    "VALUES ('French_Roast', 49, 8.99, 0, 0)");
+            PreparedStatement pstmt = conn.prepareStatement(
+                    "INSERT INTO REGISTRATION (USER_ID, EMAIL, PASS, USERNAME) " +
+                            "VALUES(NULL, ?, ?, ?)");
+
+            pstmt.setString(1, user.email);
+            pstmt.setString(2, user.pass);
+            pstmt.setString(3, user.username);
+
+            int rows = pstmt.executeUpdate(); // "rows" save the affected rows
+
+            System.out.println(rows);
 
             stmt.executeUpdate("CREATE TABLE USER_DATA" +
                     "USER_ID INTEGER, " +
@@ -64,14 +72,11 @@ public class DatabaseDriver {
 
         ResultSet emails = checkEmail(user.email);
 
-        if(!emails.first()){
-            stmt.executeUpdate("CREATE TABLE USER_DATA" +
-                    "USER_ID INTEGER, " +
-                    "HASH_SUM INTEGER, " +
-                    "VARCHAR(40) FILENAME, CHAR(20) DATA"); //20 so random
+        if(emails.first()){
+            //do smth
         }
         else {
-            //nothing
+            //send error to site
         }
     }
 
