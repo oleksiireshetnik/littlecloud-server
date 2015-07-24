@@ -68,7 +68,7 @@ public class TrayIcon {
         final SystemTray tray = SystemTray.getSystemTray();
 
         // Create a pop-up menu components
-        MenuItem aboutItem = new MenuItem("About");
+        MenuItem aboutItem = new MenuItem("About"); //wow
         CheckboxMenuItem cb1 = new CheckboxMenuItem("Set auto size");
         CheckboxMenuItem cb2 = new CheckboxMenuItem("Set tooltip");
         Menu displayMenu = new Menu("Display");
