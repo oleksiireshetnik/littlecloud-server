@@ -37,6 +37,7 @@ package com.littlecloud.gui;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
+import javax.swing.ImageIcon;
 import javax.swing.*;
 
 public class TrayMenuClass {
