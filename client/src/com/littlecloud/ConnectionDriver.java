@@ -9,9 +9,9 @@ import java.io.IOException;
 /**
  * Created by getupandgo on 7/19/15.
  */
-public class FtpDriver
+public class ConnectionDriver
 {
-    public void initFtpConnection()
+    public void initConnection()
     {
         ftp = new FTPClient();
         FTPClientConfig config = new FTPClientConfig();
