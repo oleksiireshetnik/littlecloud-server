@@ -36,13 +36,15 @@ package com.littlecloud.gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.*;
 
-public class TrayMenuClass {
+public class SystemTrayMenu {
+    /*
     public static void main(String[] args) {
-        /* Use an appropriate Look and Feel */
+
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
             //UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
@@ -55,7 +57,7 @@ public class TrayMenuClass {
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();
         }
-        /* Turn off metal's use of bold fonts */
+
         UIManager.put("swing.boldMetal", Boolean.FALSE);
         //Schedule a job for the event-dispatching thread:
         //adding TrayIcon.
@@ -65,8 +67,8 @@ public class TrayMenuClass {
             }
         });
     }
-    
-    private static void createAndShowGUI() {
+    */
+    public static void createTrayMenu() {
         //Check the SystemTray support
         if (!SystemTray.isSupported()) {
             System.out.println("SystemTray is not supported");
@@ -74,31 +76,24 @@ public class TrayMenuClass {
         }
         final PopupMenu popup = new PopupMenu();
         final TrayIcon trayIcon =
-                new TrayIcon(createImage("images/bulb.gif", "tray icon"));
+                new TrayIcon(createImage("/com/littlecloud/gui/images/bulb.gif", "Little cloud"));
         final SystemTray tray = SystemTray.getSystemTray();
         
         // Create a popup menu components
-        MenuItem aboutItem = new MenuItem("About");
-        CheckboxMenuItem cb1 = new CheckboxMenuItem("Set auto size");
-        CheckboxMenuItem cb2 = new CheckboxMenuItem("Set tooltip");
-        Menu displayMenu = new Menu("Display");
-        MenuItem errorItem = new MenuItem("Error");
-        MenuItem warningItem = new MenuItem("Warning");
-        MenuItem infoItem = new MenuItem("Info");
-        MenuItem noneItem = new MenuItem("None");
+        MenuItem syncItem = new MenuItem("Synchronize");
+        CheckboxMenuItem encoding = new CheckboxMenuItem("Client-side encoding");
+        MenuItem userItem = new MenuItem("Change user");
+        MenuItem pathItem = new MenuItem("Change path");
         MenuItem exitItem = new MenuItem("Exit");
         
         //Add components to popup menu
-        popup.add(aboutItem);
+        popup.add(syncItem);
         popup.addSeparator();
-        popup.add(cb1);
-        popup.add(cb2);
+        popup.add(encoding);
         popup.addSeparator();
-        popup.add(displayMenu);
-        displayMenu.add(errorItem);
-        displayMenu.add(warningItem);
-        displayMenu.add(infoItem);
-        displayMenu.add(noneItem);
+        popup.add(userItem);
+        popup.add(pathItem);
+        popup.addSeparator();
         popup.add(exitItem);
         
         trayIcon.setPopupMenu(popup);
@@ -109,75 +104,33 @@ public class TrayMenuClass {
             System.out.println("TrayIcon could not be added.");
             return;
         }
-        
+
+        trayIcon.setImageAutoSize(true);
+
         trayIcon.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null,
                         "This dialog box is run from System Tray");
             }
         });
-        
-        aboutItem.addActionListener(new ActionListener() {
+
+        syncItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null,
                         "This dialog box is run from the About menu item");
             }
         });
-        
-        cb1.addItemListener(new ItemListener() {
+
+        encoding.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent e) {
                 int cb1Id = e.getStateChange();
                 if (cb1Id == ItemEvent.SELECTED){
-                    trayIcon.setImageAutoSize(true);
+                    //
                 } else {
-                    trayIcon.setImageAutoSize(false);
+                   // trayIcon.setImageAutoSize(false);
                 }
             }
         });
-        
-        cb2.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent e) {
-                int cb2Id = e.getStateChange();
-                if (cb2Id == ItemEvent.SELECTED){
-                    trayIcon.setToolTip("Sun TrayIcon");
-                } else {
-                    trayIcon.setToolTip(null);
-                }
-            }
-        });
-        
-        ActionListener listener = new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                MenuItem item = (MenuItem)e.getSource();
-                //TrayIcon.MessageType type = null;
-                System.out.println(item.getLabel());
-                if ("Error".equals(item.getLabel())) {
-                    //type = TrayIcon.MessageType.ERROR;
-                    trayIcon.displayMessage("Sun TrayIcon Demo",
-                            "This is an error message", TrayIcon.MessageType.ERROR);
-                    
-                } else if ("Warning".equals(item.getLabel())) {
-                    //type = TrayIcon.MessageType.WARNING;
-                    trayIcon.displayMessage("Sun TrayIcon Demo",
-                            "This is a warning message", TrayIcon.MessageType.WARNING);
-                    
-                } else if ("Info".equals(item.getLabel())) {
-                    //type = TrayIcon.MessageType.INFO;
-                    trayIcon.displayMessage("Sun TrayIcon Demo",
-                            "This is an info message", TrayIcon.MessageType.INFO);
-                    
-                } else if ("None".equals(item.getLabel())) {
-                    //type = TrayIcon.MessageType.NONE;
-                    trayIcon.displayMessage("Sun TrayIcon Demo",
-                            "This is an ordinary message", TrayIcon.MessageType.NONE);
-                }
-            }
-        };
-        
-        errorItem.addActionListener(listener);
-        warningItem.addActionListener(listener);
-        infoItem.addActionListener(listener);
-        noneItem.addActionListener(listener);
         
         exitItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -189,6 +142,9 @@ public class TrayMenuClass {
     
     //Obtain the image URL
     protected static Image createImage(String path, String description) {
+
+        System.out.println(new File(".").getAbsolutePath());
+
         URL imageURL = TrayIcon.class.getResource(path);
         
         if (imageURL == null) {

@@ -20,26 +20,26 @@ import java.io.File;
  */
 public class ConnectionDriver
 {
-    public void initServer() throws FtpException {
-       // try {
-            FtpServerFactory serverFactory = new FtpServerFactory();
-            ListenerFactory factory = new ListenerFactory();
-            // set the port of the listener
-            factory.setPort(2221);
-            // define SSL configuration
-            SslConfigurationFactory ssl = new SslConfigurationFactory();
-            ssl.setKeystoreFile(new File("src/test/resources/ftpserver.jks"));
-            ssl.setKeystorePassword("password");
-            // set the SSL configuration for the listener
-            factory.setSslConfiguration(ssl.createSslConfiguration());
-            factory.setImplicitSsl(true);
-            // replace the default listener
-            serverFactory.addListener("default", factory.createListener());
-            PropertiesUserManagerFactory userManagerFactory = new PropertiesUserManagerFactory();
-            userManagerFactory.setFile(new File("myusers.properties"));
-            serverFactory.setUserManager(userManagerFactory.createUserManager());
-            // start the server
-            FtpServer server = serverFactory.createServer();
-            server.start();
+    public void initListener() throws FtpException
+    {
+        FtpServerFactory serverFactory = new FtpServerFactory();
+        ListenerFactory factory = new ListenerFactory();
+        // set the port of the listener
+        factory.setPort(2221);
+        // define SSL configuration
+        SslConfigurationFactory ssl = new SslConfigurationFactory();
+        ssl.setKeystoreFile(new File("src/test/resources/ftpserver.jks"));
+        ssl.setKeystorePassword("password");
+        // set the SSL configuration for the listener
+        factory.setSslConfiguration(ssl.createSslConfiguration());
+        factory.setImplicitSsl(true);
+        // replace the default listener
+        serverFactory.addListener("default", factory.createListener());
+        PropertiesUserManagerFactory userManagerFactory = new PropertiesUserManagerFactory();
+        userManagerFactory.setFile(new File("myusers.properties"));
+        serverFactory.setUserManager(userManagerFactory.createUserManager());
+        // start the server
+        FtpServer server = serverFactory.createServer();
+        server.start();
     }
 }
