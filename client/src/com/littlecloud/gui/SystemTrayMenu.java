@@ -114,10 +114,19 @@ public class SystemTrayMenu {
             }
         });
 
-        syncItem.addActionListener(new ActionListener() {
+        pathItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,
-                        "This dialog box is run from the About menu item");
+    		JFileChooser chooser = new JFileChooser();
+    		chooser.setCurrentDirectory(new java.io.File("."));
+    		chooser.setDialogTitle("choosertitle");
+    		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    		chooser.setAcceptAllFileFilterUsed(false);
+
+			if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+				System.out.println("getCurrentDirectory(): " + chooser.getCurrentDirectory());
+				System.out.println("getSelectedFile() : " + chooser.getSelectedFile());
+			} else {
+				System.out.println("No Selection ");
             }
         });
 
