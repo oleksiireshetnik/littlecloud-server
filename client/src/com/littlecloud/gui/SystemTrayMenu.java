@@ -118,7 +118,7 @@ public class SystemTrayMenu {
             public void actionPerformed(ActionEvent e) {
     		JFileChooser chooser = new JFileChooser();
     		chooser.setCurrentDirectory(new java.io.File("."));
-    		chooser.setDialogTitle("choosertitle");
+    		chooser.setDialogTitle("Choose directory");
     		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
     		chooser.setAcceptAllFileFilterUsed(false);
 
