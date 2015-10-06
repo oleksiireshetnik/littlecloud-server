@@ -40,6 +40,7 @@ import java.io.File;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.*;
+import java.util.logging.Logger;
 
 public class SystemTrayMenu {
     /*
@@ -71,7 +72,7 @@ public class SystemTrayMenu {
     public static void createTrayMenu() {
         //Check the SystemTray support
         if (!SystemTray.isSupported()) {
-            System.out.println("SystemTray is not supported");
+            LOGGER.warning("SystemTray is not supported");
             return;
         }
         final PopupMenu popup = new PopupMenu();
@@ -101,7 +102,7 @@ public class SystemTrayMenu {
         try {
             tray.add(trayIcon);
         } catch (AWTException e) {
-            System.out.println("TrayIcon could not be added.");
+            LOGGER.severe("TrayIcon could not be added.");
             return;
         }
 
@@ -123,10 +124,10 @@ public class SystemTrayMenu {
     		chooser.setAcceptAllFileFilterUsed(false);
 
 			if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-				System.out.println("getCurrentDirectory(): " + chooser.getCurrentDirectory());
-				System.out.println("getSelectedFile() : " + chooser.getSelectedFile());
+				LOGGER.finer("getCurrentDirectory(): " + chooser.getCurrentDirectory());
+				LOGGER.finer("getSelectedFile() : " + chooser.getSelectedFile());
 			} else {
-				System.out.println("No Selection ");
+				LOGGER.fine("No Selection");
             }
         });
 
@@ -157,10 +158,12 @@ public class SystemTrayMenu {
         URL imageURL = TrayIcon.class.getResource(path);
         
         if (imageURL == null) {
-            System.err.println("Resource not found: " + path);
+            LOGGER.severe("Resource not found: " + path);
             return null;
         } else {
             return (new ImageIcon(imageURL, description)).getImage();
         }
     }
+
+	private static Logger LOGGER = Logger.getLogger(SystemTrayMenu.class.getName());
 }

@@ -24,8 +24,8 @@ public class ConnectionDriver
     {
         int reply;
         ftp.connect(url);
-        System.out.println("Connected to " + url);
-        System.out.print(ftp.getReplyString());
+        LOGGER.info("Connected to " + url);
+        //System.out.print(ftp.getReplyString());
 
         // After connection attempt, you should check the reply code to verify
         // success.
@@ -33,7 +33,7 @@ public class ConnectionDriver
 
         if(!FTPReply.isPositiveCompletion(reply)) {
             ftp.disconnect();
-            System.err.println("FTP server refused connection.");
+            LOGGER.info("FTP server refused connection.");
         }
         //... // transfer files
         ftp.logout();
@@ -51,5 +51,6 @@ public class ConnectionDriver
     }
 
     FTPClient ftp;
+	private static Logger LOGGER = Logger.getLogger(ConnectionDriver.class.getName());
 
 }

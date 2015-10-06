@@ -26,10 +26,10 @@ public class DatabaseDriver {
     void initConnection() throws ClassNotFoundException, SQLException {
             Class.forName(JDBC_DRIVER);
 
-            System.out.println("Connecting to database...");
+            LOGGER.info("Connecting to database...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
-            System.out.println("Creating statement...");
+            LOGGER.info("Creating statement...");
             stmt = conn.createStatement();
     }
 
@@ -65,7 +65,7 @@ public class DatabaseDriver {
                     "HASH_SUM INTEGER, " +
                     "VARCHAR(40) FILENAME, CHAR(20) DATA"); //20 so random
         }
-        else System.out.println("User exists");
+        else LOGGER.info("User exists");
     }
 
     void login(UserInfo user) throws SQLException {
