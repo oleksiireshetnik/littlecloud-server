@@ -5,6 +5,7 @@ import org.apache.commons.net.ftp.FTPClientConfig;
 import org.apache.commons.net.ftp.FTPReply;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 /**
  * Created by getupandgo on 7/19/15.

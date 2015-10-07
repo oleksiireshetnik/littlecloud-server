@@ -1,6 +1,7 @@
 package com.getupandgo;
 
 import java.sql.*;
+import java.util.logging.Logger;
 
 /**
  * Created by getupandgo on 7/19/15.
@@ -96,4 +97,6 @@ public class DatabaseDriver {
 
     private Connection conn;
     private Statement stmt;
+
+    private static Logger LOGGER = Logger.getLogger(ConnectionDriver.class.getName());
 }
