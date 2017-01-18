@@ -1,0 +1,19 @@
+{
+  "name": "littlecloud-server",
+  "version": "1.0.0",
+  "description": "Little cute implementation of cloud drive",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getupandgo/littlecloud-server.git"
+  },
+  "author": "getupandgo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/getupandgo/littlecloud-server/issues"
+  },
+  "homepage": "https://github.com/getupandgo/littlecloud-server#readme"
+}
